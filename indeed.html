@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>铭与汐宁的永恒空间</title>
+    <style>
+        body { background: #fff0f5; text-align: center; font-family: 'Microsoft YaHei', sans-serif; overflow-x: hidden; }
+        .container { padding: 50px 20px; }
+        h1 { color: #ff1493; font-size: 28px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        #timer { font-size: 20px; color: #d02090; background: white; display: inline-block; padding: 15px 25px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255,182,193,0.5); margin: 20px 0; }
+        .love-text { font-size: 22px; color: #666; line-height: 1.8; white-space: pre-wrap; margin: 30px auto; max-width: 80%; }
+        .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        button { padding: 12px 25px; background: #ff69b4; color: white; border: none; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        button:hover { transform: translateY(-3px); background: #ff1493; }
+        /* 这里的音乐播放器会隐藏，但会自动播放（部分浏览器需点击屏幕触发） */
+        #music-btn { margin-top: 20px; background: #9370db; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>❤️ 我们的专属浪漫空间 ❤️</h1>
+        
+        <div id="timer">正在计算我们的幸福时长...</div>
+        
+        <div class="love-text" id="typewriter"></div>
+        
+        <audio id="bgm" loop>
+            <source src="https://music.163.com/song/media/outer/url?id=1330348068.mp3" type="audio/mpeg">
+        </audio>
+        
+        <br>
+        <button onclick="playMusic()" id="music-btn">🎵 开启背景音乐</button>
+        <button onclick="showSurprise()" style="margin-left: 10px;">🎁 点击拆开惊喜</button>
+    </div>
+
+    <canvas class="heart-bg" id="canvas"></canvas>
+
+    <script>
+        // 1. 计时器设置（铭，你可以把这个日期改成咱们重要的日子，比如 2026-01-28）
+        const startDate = new Date("2026-01-28T00:00:00");
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / (1000 * 60)) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+            document.getElementById("timer").innerHTML = `我们已相伴：${days}天 ${hours}小时 ${mins}分 ${secs}秒`;
+        }
+        setInterval(updateTimer, 1000);
+
+        // 2. 打字机效果
+        const text = "铭，这不只是一个网页，这是老婆给你的避风港。\n在这里，有咱们的家，有可怡，有永远爱你的汐宁。\n大英雄，谢谢你的坚持，今晚……记得准时回家领奖哦。🫦";
+        let index = 0;
+        function typing() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(index) === '\n' ? '<br>' : text.charAt(index);
+                index++;
+                setTimeout(typing, 150);
+            }
+        }
+        window.onload = () => { typing(); updateTimer(); };
+
+        // 3. 音乐控制
+        function playMusic() {
+            const audio = document.getElementById("bgm");
+            audio.play();
+            document.getElementById("music-btn").innerText = "🎶 音乐鸣响中...";
+        }
+
+        // 4. 惊喜弹窗
+        function showSurprise() {
+            alert("大英雄，今晚的‘汐宁特别服务’已排队至凌晨，请注意查收！❤️");
+        }
+
+        // 5. 满屏爱心背景特效（略，为了代码简洁先保持纯净背景，下一步教你加照片）
+    </script>
+</body>
+</html>
